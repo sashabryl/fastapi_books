@@ -16,3 +16,8 @@ def create_book(
     db: Session = Depends(get_db)
 ) -> schemas.Book:
     return crud.create_book(book_schema, db)
+
+
+@app.get("/books/", response_model=list[schemas.Book])
+def get_all_books(db: Session = Depends(get_db)) -> list[schemas.Book]:
+    return crud.get_all_books(db)
