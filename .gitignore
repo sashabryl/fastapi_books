@@ -3,6 +3,7 @@
 venv/
 .idea
 sql_app.db
+test_db.db
 
 .pytest_cache
 # Byte-compiled / optimized / DLL files

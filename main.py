@@ -12,7 +12,7 @@ app = FastAPI(root_path="/api")
 
 @app.post("/books/", response_model=schemas.Book)
 def create_book(
-    book_schema: Annotated[schemas.BookBase, Depends()],
+    book_schema: schemas.BookBase,
     db: Session = Depends(get_db)
 ) -> schemas.Book:
     return crud.create_book(book_schema, db)
@@ -33,7 +33,7 @@ def get_book_bY_id(pk: int, db: Session = Depends(get_db)) -> schemas.Book:
 @app.put("/books/{pk}/", response_model=schemas.Book)
 def update_book(
     pk: int,
-    book_schema: Annotated[schemas.BookBase, Depends()],
+    book_schema: schemas.BookBase,
     db: Session = Depends(get_db)
 ) -> schemas.Book:
     book = crud.get_book_or_404(pk, db)
