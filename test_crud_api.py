@@ -61,3 +61,15 @@ def test_updating_books(test_client, book_payload):
     book_payload["publication_year"] = 0
     response = test_client.put("/api/books/1/", json=book_payload)
     assert response.status_code == 422
+
+
+def test_book_deletion(test_client, book_payload):
+    response = test_client.delete("/api/books/1/")
+    assert response.status_code == 404
+
+    test_client.post("/api/books/", json=book_payload)
+    response = test_client.delete("/api/books/1/")
+    assert response.status_code == 200
+
+    response = test_client.get("/api/books/1")
+    assert response.status_code == 404
