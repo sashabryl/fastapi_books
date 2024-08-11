@@ -15,3 +15,7 @@ def create_book(book_scheme: schemas.BookBase, db: Session) -> schemas.Book:
 
 def get_all_books(db: Session) -> list[schemas.Book]:
     return db.query(Book).all()
+
+
+def get_book_by_id(pk: int, db: Session) -> schemas.Book | None:
+    return db.query(Book).filter(Book.id == pk).first()
