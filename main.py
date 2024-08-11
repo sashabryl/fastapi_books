@@ -30,3 +30,16 @@ def get_book_bY_id(pk: int, db: Session = Depends(get_db)) -> schemas.Book:
         raise HTTPException(404, f"Book with id {pk} is yet to be born(((")
 
     return book
+
+
+@app.put("/books/{pk}/", response_model=schemas.Book)
+def update_book(
+    pk: int,
+    book_schema: Annotated[schemas.BookBase, Depends()],
+    db: Session = Depends(get_db)
+) -> schemas.Book:
+    book = crud.get_book_by_id(pk, db)
+    if not book:
+        raise HTTPException(404, f"Book with id {pk} is yet to be born(((")
+
+    return crud.update_book(book, book_schema, db)
